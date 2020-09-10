@@ -1,17 +1,20 @@
 package project.school.springreacttemplate.Models;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Users {
     @Id
+    @Column(name="user_id")
+    @GeneratedValue
     private Integer user_id;
-    private String userName;
+    private String username;
     private String password;
     private String role;
-    private Integer enabled;
 
     public Integer getUser_id() {
         return user_id;
@@ -22,11 +25,11 @@ public class Users {
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = userName;
     }
 
     public String getPassword() {
@@ -43,13 +46,5 @@ public class Users {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public Integer getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Integer enabled) {
-        this.enabled = enabled;
     }
 }
