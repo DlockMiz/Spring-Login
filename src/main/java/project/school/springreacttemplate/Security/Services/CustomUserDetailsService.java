@@ -2,7 +2,10 @@ package project.school.springreacttemplate.Security.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import project.school.springreacttemplate.Models.Users;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import project.school.springreacttemplate.Models.AccountData.Role;
+import project.school.springreacttemplate.Models.AccountData.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,6 +13,8 @@ import org.springframework.stereotype.Service;
 import project.school.springreacttemplate.Repositories.UserRepository;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -18,7 +23,17 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Users user = repository.findByUsername(username);
-        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), new ArrayList<>());
+        User user = repository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("Could not find user");
+        }
+
+        Set<Role> roles = user.getRoles();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 }
