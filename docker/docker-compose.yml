@@ -6,7 +6,7 @@ mysql:
   ports:
     - "3306:3306"
   environment:
-    MYSQL_DATABASE: rv_server
+    MYSQL_DATABASE: template_db
     MYSQL_USER: user
     MYSQL_PASSWORD: secret
     MYSQL_ROOT_PASSWORD: secret

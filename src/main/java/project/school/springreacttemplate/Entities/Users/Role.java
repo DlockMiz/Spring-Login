@@ -1,4 +1,4 @@
-package project.school.springreacttemplate.Models.AccountData;
+package project.school.springreacttemplate.Entities.Users;
 
 import javax.persistence.*;
 

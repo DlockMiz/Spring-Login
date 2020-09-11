@@ -1,4 +1,4 @@
-package project.school.springreacttemplate.Models.AccountData;
+package project.school.springreacttemplate.ApiModels.AccountData;
 
 public class AuthRequest {
     private String username;
